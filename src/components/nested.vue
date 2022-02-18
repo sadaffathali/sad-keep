@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="editable" class="pl-4 mb-2 font-semibold">
-      {{ tasks[0] != undefined ? tasks[0].title : "" }}
+      {{ tasks.length > 0 ? tasks[0].title : "" }}
     </div>
     <draggable
       class="dragArea"
@@ -11,7 +11,7 @@
       :disabled="editable"
     >
       <li v-for="(el, index) in tasks" :key="index" class="pl-4">
-        <div class="flex items-center">
+        <div class="flex items-center relative">
           <input
             type="checkbox"
             class="checkbox cursor-move"
@@ -26,11 +26,19 @@
             class="custom-input"
             v-model="el.label"
             :disabled="editable"
+            @keyup.delete="triggerDBKeyUp($event, index)"
             :class="{
               'line-through	 text-slate-500': el.checked,
               'cursor-default': !editable,
             }"
           />
+          <span
+            v-if="!editable"
+            class="absolute right-2 top-1 cursor-pointer text-slate-400 hover:text-slate-200"
+            @click="removeTask(index)"
+          >
+            x
+          </span>
         </div>
         <nested-draggable :tasks="el.tasks" />
       </li>
@@ -56,10 +64,23 @@ export default {
     draggable,
   },
   name: "nested-draggable",
+  methods: {
+    removeTask(i) {
+      this.tasks.splice(i, 1);
+      if (this.tasks.length == 0) {
+        this.tasks.push({
+          label: "",
+          title: "",
+          checked: false,
+          tasks: [],
+        });
+      }
+    },
+    triggerDBKeyUp(event, index) {
+      if (event.target.value.trim() == "") {
+        this.removeTask(index);
+      }
+    },
+  },
 };
 </script>
-<style lang="scss">
-.custom-input {
-  @apply bg-transparent focus:bg-transparent  w-full  focus:shadow-none focus:outline-none resize-none py-1;
-}
-</style>

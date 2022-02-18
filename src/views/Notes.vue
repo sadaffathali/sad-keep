@@ -1,5 +1,7 @@
 <template>
-  <div class="container mx-auto flex flex-col space-y-8 grow">
+  <div
+    class="container mx-auto flex flex-col md:flex-row md:space-y-0 md:space-x-4 space-y-8 grow"
+  >
     <Note
       @click="showNote(index)"
       v-for="(note, index) in notes"

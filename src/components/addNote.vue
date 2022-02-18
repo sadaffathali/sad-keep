@@ -1,7 +1,6 @@
 <template>
   <div
     class="border border-slate-700 px-4 py-2 rounded-md max-w-sm w-full mx-auto mb-8 text-slate-300 shadow-md"
-    v-click-outside="submitForm"
   >
     <span v-if="!show" class="flex exceptItem" @click="showNewNote">
       Take a note ...
@@ -24,7 +23,7 @@
         <nested-draggable :tasks="list" />
       </div>
 
-      <div class="flex justify-end">
+      <div class="flex justify-end mt-4">
         <input
           type="button"
           value="submit"
@@ -37,8 +36,8 @@
 </template>
 <script>
 import Vue from "vue";
-
 import nestedDraggable from "@/components/nested.vue";
+
 export default {
   data() {
     return {
@@ -62,7 +61,7 @@ export default {
     async showNewNote() {
       this.show = true;
       Vue.nextTick(() => {
-        this.$refs.input.lastChild.lastChild.lastChild.children[0].lastChild.focus();
+        this.focusOnInput();
       });
     },
     submitForm() {
@@ -92,14 +91,12 @@ export default {
       });
 
       Vue.nextTick(() => {
-        this.$refs.input.lastChild.lastChild.lastChild.children[0].lastChild.focus();
+        this.focusOnInput();
       });
+    },
+    focusOnInput() {
+      this.$refs.input.lastChild.lastChild.lastChild.children[0].children[1].focus();
     },
   },
 };
 </script>
-<style lang="scss">
-.custom-input {
-  @apply bg-transparent focus:bg-transparent  w-full  focus:shadow-none focus:outline-none resize-none py-1;
-}
-</style>

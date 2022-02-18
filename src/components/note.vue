@@ -9,7 +9,7 @@
 
     <nested-draggable :editable="true" :tasks="notes" />
 
-    <div class="flex justify-end w-full mt-2" v-if="isEditable">
+    <div class="flex justify-end w-full" v-if="isEditable">
       <input
         type="button"
         value="submit"
