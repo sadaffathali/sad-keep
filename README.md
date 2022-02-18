@@ -1,4 +1,5 @@
-# my-app
+# SAD-KEEP
+It's the same as Google Keeps but you can have unlimited subtasks for each and every one of your main tasks!
 
 ## Project setup
 ```
