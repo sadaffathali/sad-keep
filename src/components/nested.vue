@@ -34,7 +34,7 @@
           />
           <span
             v-if="!editable"
-            class="absolute right-2 top-1 cursor-pointer text-slate-400 hover:text-slate-200"
+            class="absolute right-2 top-1 cursor-pointer text-slate-400 hover:text-slate-200 exceptItem"
             @click="removeTask(index)"
           >
             x

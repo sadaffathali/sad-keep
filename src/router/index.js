@@ -9,6 +9,11 @@ const routes = [
     name: "home",
     component: () => import("../views/Notes.vue"),
   },
+  {
+    path: "*",
+    name: "404 Error",
+    component: () => import("@/views/404.vue"),
+  },
 ];
 
 const router = new VueRouter({
