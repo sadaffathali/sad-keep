@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <div v-if="editable" class="pl-4 mb-2 font-semibold">
       {{ tasks.length > 0 ? tasks[0].title : "" }}
     </div>

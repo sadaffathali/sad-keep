@@ -51,7 +51,7 @@ export default {
       this.dropdown = false;
     },
     submitForm() {
-      console.log("hi");
+      // console.log("hi");
     },
   },
 };
