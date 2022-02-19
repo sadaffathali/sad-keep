@@ -40,7 +40,7 @@
             x
           </span>
         </div>
-        <nested-draggable :tasks="el.tasks" />
+        <nested-draggable :editable="editable" :tasks="el.tasks" />
       </li>
     </draggable>
   </div>

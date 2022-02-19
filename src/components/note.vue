@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-start border border-slate-700 pr-4 pt-2 pb-6 rounded-md shadow shadow-slate-500/40 leading-6 relative h-fit cursor-pointer"
+    class="flex flex-col items-start border border-slate-700 pr-4 pt-2 pb-6 rounded-md shadow shadow-slate-500/40 leading-6 relative h-fit"
     @click="$emit('click')"
     v-click-outside="submitForm"
   >
