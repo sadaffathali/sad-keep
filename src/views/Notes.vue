@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2 md:grow">
+  <div class="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
     <Note
       @click="showNote(index)"
       v-for="(note, index) in notes"
@@ -19,6 +19,7 @@
           :editable="true"
           @updated="show = !$event"
           v-click-outside="closeNote"
+          @removed="show = !$event"
         />
       </div>
     </div>

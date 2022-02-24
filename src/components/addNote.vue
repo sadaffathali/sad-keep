@@ -140,6 +140,7 @@ export default {
     },
     removeNote() {
       this.$store.dispatch("removeNote", this.id);
+      this.$emit("removed", true);
     },
   },
 };
