@@ -11,9 +11,6 @@
       v-if="dropdown"
     >
       <ul>
-        <!-- <li class="hover:bg-slate-900 p-2 cursor-pointer" v-if="editable">
-          Edit Note
-        </li> -->
         <li
           class="hover:bg-slate-900 p-2 cursor-pointer"
           @click="$emit('removeNote')"
@@ -38,7 +35,7 @@ export default {
     },
     editable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 };

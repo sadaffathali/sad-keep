@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div v-if="editable" class="pl-4 mb-2 font-semibold">
+    <div v-if="!editable" class="pl-4 mb-2 font-semibold">
       {{ tasks.length > 0 ? tasks[0].title : "" }}
     </div>
     <draggable
@@ -8,7 +8,7 @@
       tag="ul"
       :list="tasks"
       :group="{ name: 'g1' }"
-      :disabled="editable"
+      :disabled="!editable"
     >
       <li v-for="(el, index) in tasks" :key="index" class="pl-4">
         <div class="flex items-center relative">
@@ -16,16 +16,16 @@
             type="checkbox"
             class="checkbox cursor-move"
             v-model="el.checked"
-            :disabled="editable"
+            :disabled="!editable"
             :class="{
-              'cursor-default': editable,
+              'cursor-default': !editable,
             }"
           />
           <input
             rows="1"
             class="custom-input"
             v-model="el.label"
-            :disabled="editable"
+            :disabled="!editable"
             @keyup.delete="triggerDBKeyUp($event, index)"
             :class="{
               'line-through	 text-slate-500': el.checked,
@@ -33,7 +33,7 @@
             }"
           />
           <span
-            v-if="!editable"
+            v-if="editable"
             class="absolute right-2 top-1 cursor-pointer text-slate-400 hover:text-slate-200 exceptItem"
             @click="removeTask(index)"
           >

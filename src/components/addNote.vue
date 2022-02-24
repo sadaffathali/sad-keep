@@ -20,13 +20,20 @@
         ref="input"
         v-on:keyup.enter="onEnter"
       >
-        <nested-draggable :tasks="list" />
+        <nested-draggable :tasks="list" :editable="true" />
       </div>
 
-      <div class="flex justify-end mt-4">
+      <div class="flex justify-between mt-4">
         <input
           type="button"
-          value="submit"
+          v-if="editable"
+          value="Delete"
+          class="cursor-pointer"
+          @click="removeNote"
+        />
+        <input
+          type="button"
+          :value="!editable ? 'Submit' : 'Update'"
           class="cursor-pointer"
           @click="submitForm"
         />
@@ -39,19 +46,41 @@ import Vue from "vue";
 import nestedDraggable from "@/components/nested.vue";
 
 export default {
+  props: {
+    note: {
+      required: false,
+      type: Array,
+    },
+    editable: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    id: {
+      required: false,
+      type: Number,
+    },
+    CloseAndSubmit: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      show: false,
+      show: this.editable ? true : false,
       title: "",
       drag: false,
-      list: [
-        {
-          label: "",
-          title: "",
-          checked: false,
-          tasks: [],
-        },
-      ],
+      list: this.note
+        ? this.note
+        : [
+            {
+              label: "",
+              title: "",
+              checked: false,
+              tasks: [],
+            },
+          ],
     };
   },
   components: {
@@ -70,7 +99,18 @@ export default {
         return;
       }
 
-      this.$store.dispatch("addNote", this.list);
+      if (this.id != undefined) {
+        let payload = {
+          id: this.id,
+          note: this.list,
+        };
+        this.$store.dispatch("updateNote", payload);
+
+        this.$emit("updated", true);
+      } else {
+        this.$store.dispatch("addNote", this.list);
+      }
+
       this.list = [
         {
           label: "",
@@ -94,8 +134,12 @@ export default {
         this.focusOnInput();
       });
     },
+
     focusOnInput() {
       this.$refs.input.lastChild.lastChild.lastChild.children[0].children[1].focus();
+    },
+    removeNote() {
+      this.$store.dispatch("removeNote", this.id);
     },
   },
 };

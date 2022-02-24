@@ -40,6 +40,12 @@ export default new Vuex.Store({
       context.commit("ADD_NOTE", noteList);
       safe_set("notes", noteList);
     },
+    updateNote(context, payload) {
+      let noteList = context.getters.notes;
+      noteList[payload.index] = payload.note;
+      context.commit("ADD_NOTE", noteList);
+      safe_set("notes", noteList);
+    },
   },
   modules: {},
 });
